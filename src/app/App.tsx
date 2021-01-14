@@ -7,8 +7,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <ObjectDetection
-          width={600}
-          height={500}
+          width={800}
+          height={450}
         />
       </header>
     </div>
