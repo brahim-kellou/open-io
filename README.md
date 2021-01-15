@@ -1,3 +1,3 @@
 # OpenIO
 
-Detecting persons on real time and communicate with an arduino to open and close a door
+Detecting persons in real-time and communicate with an Arduino to open and close a door
