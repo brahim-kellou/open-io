@@ -1,17 +1,12 @@
 import React from 'react';
-import './App.css';
-import ObjectDetection from '../components/ObjectDetection';
+import { ChakraProvider } from "@chakra-ui/react"
+import HomeView from '../views/HomeView';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <ObjectDetection
-          width={800}
-          height={450}
-        />
-      </header>
-    </div>
+    <ChakraProvider>
+      <HomeView />
+    </ChakraProvider>
   );
 }
 
