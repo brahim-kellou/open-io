@@ -1,0 +1,16 @@
+{
+  "name": "open-io-clients",
+  "version": "1.0.0",
+  "description": "client side for open-io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "johnny-five": "^2.0.0",
+    "repl": "^0.1.3",
+    "ws": "^7.4.3"
+  },
+  "author": "OpenIO team",
+  "license": "ISC"
+}
