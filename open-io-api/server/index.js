@@ -22,6 +22,7 @@ app.get('/api', (req, resp) => {
 app.post('/api', (req, resp) => {
   try {
     console.log('person detected!')
+    io.sockets.emit('open-door', 'everyone');
     return resp.status(200).send({
       success: true,
       message: 'well received',
