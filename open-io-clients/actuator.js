@@ -9,6 +9,24 @@ var board = new Board({
   repl: false,
 });
 
+
+socket.on("open-door", ()=>{
+  open_door();
+})
+
+socket.on("close-door", ()=>{
+  close_door();
+})
+
+socket.on("play-alarm", ()=>{
+  play_alarm();
+})
+
+socket.on("pause-alarm", ()=>{
+  pause_alarm();
+})
+
+
 function open_door() {
   redLed.off();
   greenLed.on();
@@ -39,29 +57,5 @@ board.on("ready", function () {
   servo = new Servo(9);
   piezo = new Piezo(2);
 
-  var socket = null;
-
-  try {
-
-  } catch (exception) {
-    console.error(exception);
-  }
-  socket.onerror = function (error) {
-    console.error(error);
-  };
-
-  socket.onopen = function (event) {
-    console.log("Connexion établie.");
-
-    // Lorsque la connexion se termine.
-    this.onclose = function (event) {
-      console.log("Connexion terminé.");
-    };
-
-    // Lorsque le serveur envoi un message.
-    this.onmessage = function (event) {
-      open_door();
-    };
-  };
 });
 
