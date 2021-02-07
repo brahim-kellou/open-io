@@ -1,7 +1,8 @@
 const { Board, Led, Servo, Piezo } = require("johnny-five");
-const WebSocket = require('ws');
+const io = require('socket.io-client')
+const socket = io('localhost:3000')
 
-//var board = new Board();
+var board = new Board();
 
 var redLed, greenLed, servo, piezo;
 var board = new Board({
@@ -41,7 +42,7 @@ board.on("ready", function () {
   var socket = null;
 
   try {
-    socket = new WebSocket("ws://192.168.78.78:3000");
+
   } catch (exception) {
     console.error(exception);
   }
@@ -63,3 +64,4 @@ board.on("ready", function () {
     };
   };
 });
+
