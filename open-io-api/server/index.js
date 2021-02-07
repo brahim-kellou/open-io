@@ -32,9 +32,10 @@ app.post('/api', (req, resp) => {
 })
 
 // socket listners
-io.on('connection', socket => {
+io.on('connection', (socket) => {
+  console.log('arduino connected!');
   socket.on('join', () => {
-    console.log('arduino connected!')
+    console.log('arduino joined!')
   })
 })
 
