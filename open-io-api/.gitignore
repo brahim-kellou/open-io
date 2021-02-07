@@ -31,3 +31,6 @@ yarn.lock
 
 # vscode 
 .vscode
+
+# package-lock
+package-lock.json
