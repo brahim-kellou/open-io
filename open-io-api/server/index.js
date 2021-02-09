@@ -28,7 +28,7 @@ app.get('/api/', (req, resp) => {
 app.post('/api/persons/detection/', (req, resp) => {
   try {
     console.log('Person passed')
-    io.socket.emit('GET_TOTAL_PERSONS', 'everyone')
+    io.sockets.emit('GET_TOTAL_PERSONS', 'everyone')
     return resp.status(200).send({
       success: true,
       message: 'well received',
