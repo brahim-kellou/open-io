@@ -1,49 +1,59 @@
-const { Board, Led, Servo, Piezo } = require("johnny-five");
+const {SOCKET_HOST} = require("./config")
+const { Board, Led, Servo, Piezo } = require('johnny-five');
 const io = require('socket.io-client')
-const socket = io('localhost:3000')
-
-var board = new Board();
+const socket = io(SOCKET_HOST, {
+  path: '/socket'
+})
+const {OPEN_DOOR, CLOSE_DOOR, PLAY_ALARM, STOP_ALARM} = require('./constants');
 
 var redLed, greenLed, servo, piezo;
+
 var board = new Board({
   repl: false,
 });
 
+board.on('ready', function () {
+  redLed = new Led(4);
+  greenLed = new Led(5);
+  servo = new Servo(9);
+  piezo = new Piezo(2);
 
-socket.on("open-door", ()=>{
-  open_door();
+});
+
+socket.on(OPEN_DOOR, () => {
+  openDoor();
 })
 
-socket.on("close-door", ()=>{
-  close_door();
+socket.on(CLOSE_DOOR, () => {
+  closeDoor();
 })
 
-socket.on("play-alarm", ()=>{
-  play_alarm();
+socket.on(PLAY_ALARM, () => {
+  playAlert();
 })
 
-socket.on("pause-alarm", ()=>{
-  pause_alarm();
+socket.on(STOP_ALARM, () => {
+  stopAlert();
 })
 
 
-function open_door() {
+function openDoor() {
   redLed.off();
   greenLed.on();
   servo.to(180);
 }
 
-function close_door() {
+function closeDoor() {
   redLed.on();
   greenLed.off();
   servo.to(0);
 }
 
-function play_alarm() {
+function playAlert() {
   piezo.tone(1000, 99 * 10000);
 }
 
-function pause_alarm() {
+function stopAlert() {
   piezo.off()
 }
 
@@ -51,11 +61,4 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-board.on("ready", function () {
-  redLed = new Led(4);
-  greenLed = new Led(5);
-  servo = new Servo(9);
-  piezo = new Piezo(2);
-
-});
 

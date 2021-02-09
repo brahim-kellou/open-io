@@ -1,34 +1,36 @@
+const {PROD_API_ENDPOINT, DEV_API_ENDPOINT} = require("./config")
 const { Board, Pin } = require("johnny-five");
 const fetch = require('node-fetch');
-
-url = 'http://192.168.78.78/api'
-
-
- var board = new Board({
-     repl: false,
- });
+const apiPath = "/api/persons/detection/"
+const apiUrl = PROD_API_ENDPOINT + apiPath
 
 
- board.on("ready", function () {
-    // read from A0
-     var pin = new Pin("A0");
-     var presence = false;
+var board = new Board({
+    repl: false,
+});
 
-     // Envoi d'un message vers le serveur.
-     pin.read(function (error, value) {
-         if (value < 400 && !presence) {
-             console.log("person detected")
-             fetch(url, {
-                 method: 'POST',
-                 headers: {
-                     'Content-type': 'application/json'
-                 }
-             }).then(resp => resp.json())
-                 .then(resp => console.log(resp))
 
-             presence = true;
-         } else if (value >= 400) {
-             presence = false;
-         }
-     });
- });
+board.on("ready", function () {
+   // read from A0
+    var pin = new Pin("A0");
+    var presence = false;
+
+    // Envoi d'un message vers le serveur.
+    pin.read(function (error, value) {
+        if (value < 400 && !presence) {
+            presence = true;
+        } else if (value >= 400 && presence) {
+            console.log("person detected")
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            }).then(resp => resp.json())
+                .then(resp => console.log(resp))
+
+            presence = false;
+        }
+    });
+});
+
