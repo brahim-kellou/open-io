@@ -14,7 +14,7 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 
 var maxPersons = 10;
-var totalPersons = 0;
+var totalPersons = 5;
 
 app.use(bodyParser.json());
 
@@ -43,14 +43,15 @@ app.post('/api/persons/detection/', (req, resp) => {
   try {
     totalPersons += 1;
     console.log(`Person passed, total persons = ${totalPersons}`)
-    if (totalPersons > maxPersons) {
-      io.sockets.emit(CLOSE_DOOR, 'everyone');
-      io.sockets.emit(PLAY_ALERT, 'everyone');
-    } else if (totalPersons == maxPersons) {
-      io.sockets.emit(CLOSE_DOOR, 'everyone');
-    } else {
+    if (totalPersons < maxPersons) {
       io.sockets.emit(OPEN_DOOR, 'everyone');
       io.sockets.emit(STOP_ALERT, 'everyone');
+    } else if (totalPersons == maxPersons) {
+      io.sockets.emit(CLOSE_DOOR, 'everyone');
+      io.sockets.emit(STOP_ALERT, 'everyone');
+    } else {
+      io.sockets.emit(CLOSE_DOOR, 'everyone');
+      io.sockets.emit(PLAY_ALERT, 'everyone');
     }
 
     return resp.status(200).send({
