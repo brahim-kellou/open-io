@@ -14,7 +14,6 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 
 var maxPersons = 10;
-var totalPersons = 5;
 
 app.use(bodyParser.json());
 
@@ -26,34 +25,10 @@ app.get('/api/', (req, resp) => {
   resp.send('Hello from OpenIO API')
 })
 
-app.post('/api/persons/max/', (req, resp) => {
-  try {
-    maxPersons = req.body.max_persons
-    console.log(`Max persons modified to ${maxPersons}`)
-    return resp.status(200).send({
-      success: true,
-      message: 'Max persons updated',
-    })
-  } catch {
-    console.log(`Error ${500}`)
-  }
-})
-
 app.post('/api/persons/detection/', (req, resp) => {
   try {
-    totalPersons += 1;
-    console.log(`Person passed, total persons = ${totalPersons}`)
-    if (totalPersons < maxPersons) {
-      io.sockets.emit(OPEN_DOOR, 'everyone');
-      io.sockets.emit(STOP_ALERT, 'everyone');
-    } else if (totalPersons == maxPersons) {
-      io.sockets.emit(CLOSE_DOOR, 'everyone');
-      io.sockets.emit(STOP_ALERT, 'everyone');
-    } else {
-      io.sockets.emit(CLOSE_DOOR, 'everyone');
-      io.sockets.emit(PLAY_ALERT, 'everyone');
-    }
-
+    console.log('Person passed')
+    io.socket.emit('GET_TOTAL_PERSONS', 'everyone')
     return resp.status(200).send({
       success: true,
       message: 'well received',
@@ -65,10 +40,29 @@ app.post('/api/persons/detection/', (req, resp) => {
 
 // socket listners
 io.on('connection', (socket) => {
-  console.log('arduino connected!');
-  socket.on('join', () => {
-    console.log('arduino joined!')
-  })
+  console.log('Device connected !');
+
+  socket.emit('GET_TOTAL_PERSONS', 'everyone');
+
+  socket.on('TOTAL_PERSONS', (totalPersons) => {
+    console.log('Total persons: ' + totalPersons)
+    if (totalPersons < maxPersons) {
+      io.sockets.emit(OPEN_DOOR, 'everyone');
+      io.sockets.emit(STOP_ALERT, 'everyone');
+    } else if (totalPersons == maxPersons) {
+      io.sockets.emit(CLOSE_DOOR, 'everyone');
+      io.sockets.emit(STOP_ALERT, 'everyone');
+    } else {
+      io.sockets.emit(CLOSE_DOOR, 'everyone');
+      io.sockets.emit(PLAY_ALERT, 'everyone');
+    }
+  });
+
+  socket.on('MAX_PERSONS', (max) => {
+    maxPersons = max
+    console.log('Max persons: ' + maxPersons)
+    socket.emit('GET_TOTAL_PERSONS', 'everyone');
+  });
 })
 
 http.listen(port, () => {
