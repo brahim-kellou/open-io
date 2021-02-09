@@ -29,7 +29,7 @@ const Home = () => {
     }
   }
 
-  const onMaxChanged = (max: string) => {
+  const onMaxChanged = (max: number) => {
     socket.emit('MAX_PERSONS', max)
   }
 
