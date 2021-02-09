@@ -41,8 +41,8 @@ app.post('/api/persons/max/', (req, resp) => {
 
 app.post('/api/persons/detection/', (req, resp) => {
   try {
-    console.log('Person passed')
     totalPersons += 1;
+    console.log(`Person passed, total persons = ${totalPersons}`)
     if (totalPersons > maxPersons) {
       io.sockets.emit(CLOSE_DOOR, 'everyone');
       io.sockets.emit(PLAY_ALERT, 'everyone');
