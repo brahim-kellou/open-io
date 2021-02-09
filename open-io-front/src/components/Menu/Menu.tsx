@@ -3,11 +3,13 @@ import { Flex, Input, Button, Box, Text } from "@chakra-ui/react"
 import '../styles.css';
 
 interface MenuProps {
-  countPerson?: number
+  countPerson?: number,
+  onMaxChanged: (objects: string) => void,
 }
 
 const Menu: React.FC<MenuProps> = ({
   countPerson,
+  onMaxChanged,
 }) => {
   const [max, setMax] = React.useState<string>("10");
   const [editable, setEditable] = React.useState(true);
@@ -27,6 +29,7 @@ const Menu: React.FC<MenuProps> = ({
 
   const handleOnChange = (e: any): void => {
     setMax(e.target.value)
+    onMaxChanged(max)
   }
 
   return (

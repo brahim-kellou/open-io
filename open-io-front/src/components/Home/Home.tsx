@@ -15,8 +15,8 @@ const Home = () => {
   const countPersonRef = React.useRef<number>(0);
 
   React.useEffect(() => {
-    socket.on('GET_NUMBER_OF_PERSON', () => {
-      socket.emit('NUMBER_OF_PERSON', countPersonRef.current)
+    socket.on('GET_TOTAL_PERSONS', () => {
+      socket.emit('TOTAL_PERSONS', countPersonRef.current)
     })
   }, [])
 
@@ -28,6 +28,11 @@ const Home = () => {
       setCountPerson(() => countPersonRef.current = count);
     }
   }
+
+  const onMaxChanged = (max: string) => {
+    socket.emit('MAX_PERSONS', max)
+  }
+
   return (
     <Box className="home" width="100%" height="100vh">
       <Grid
@@ -39,6 +44,7 @@ const Home = () => {
         >
           <Menu
             countPerson={countPerson}
+            onMaxChanged={onMaxChanged}
           />
         </GridItem>
         <GridItem
