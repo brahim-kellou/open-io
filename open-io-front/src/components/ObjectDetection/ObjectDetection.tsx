@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import useLoadModel from './useLoadModel';
 import useLoadVideo from './useLoadVideo';
-import { Flex } from "@chakra-ui/react"
+
+import { Flex } from "@chakra-ui/react";
 import { draw } from './utils';
 
 interface ObjectDetectionOptions {

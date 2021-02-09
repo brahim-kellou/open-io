@@ -1,15 +1,32 @@
 import * as React from 'react';
-import { Grid, GridItem, Box, } from "@chakra-ui/react"
+import { Grid, GridItem, Box, } from "@chakra-ui/react";
+import { io } from 'socket.io-client';
 import ObjectDetection from '../ObjectDetection';
 import Menu from '../Menu';
+import { SOCKET_HOST } from '../../config';
 import '../styles.css';
+
+const socket = io(SOCKET_HOST, {
+  path: '/socket'
+});
 
 const Home = () => {
   const [countPerson, setCountPerson] = React.useState<number>(0);
+  const countPersonRef = React.useRef<number>(0);
+
+  React.useEffect(() => {
+    socket.on('GET_NUMBER_OF_PERSON', () => {
+      socket.emit('NUMBER_OF_PERSON', countPersonRef.current)
+    })
+  }, [])
+
   const onDetection = (objects: any[]) => {
     const count = objects.filter(obj => obj.class === "person").length;
-    console.log(count);
-    setCountPerson(count);
+
+    if (count != countPersonRef.current) {
+      console.log(count)
+      setCountPerson(() => countPersonRef.current = count);
+    }
   }
   return (
     <Box className="home" width="100%" height="100vh">

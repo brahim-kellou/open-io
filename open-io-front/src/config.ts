@@ -1,0 +1,1 @@
+export const SOCKET_HOST = 'http://192.168.78.78';
