@@ -5,7 +5,8 @@ const io = require('socket.io')(http, {
   cors: {
     origin: '*',
     methods: ['GET', 'POST']
-  }
+  },
+  path: '/socket'
 });
 
 const bodyParser = require('body-parser');
