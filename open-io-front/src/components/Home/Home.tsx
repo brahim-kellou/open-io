@@ -16,6 +16,7 @@ const Home = () => {
 
   React.useEffect(() => {
     socket.on('GET_TOTAL_PERSONS', () => {
+      console.log('GET_TOTAL_PERSONS')
       socket.emit('TOTAL_PERSONS', countPersonRef.current)
     })
   }, [])
@@ -24,7 +25,6 @@ const Home = () => {
     const count = objects.filter(obj => obj.class === "person").length;
 
     if (count != countPersonRef.current) {
-      console.log(count)
       setCountPerson(() => countPersonRef.current = count);
     }
   }

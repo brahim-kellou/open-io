@@ -42,7 +42,7 @@ app.post('/api/persons/detection/', (req, resp) => {
 io.on('connection', (socket) => {
   console.log('Device connected !');
 
-  socket.emit('GET_TOTAL_PERSONS', 'everyone');
+  io.sockets.emit('GET_TOTAL_PERSONS', 'everyone')
 
   socket.on('TOTAL_PERSONS', (totalPersons) => {
     console.log('Total persons: ' + totalPersons)
