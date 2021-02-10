@@ -35,6 +35,12 @@ board.on('ready', function () {
   }
 });
 
+board.on('exit', function () {
+  greenLed.off();
+  redLed.off();
+  piezo.off();
+});
+
 socket.on(OPEN_DOOR, () => {
   if (board.isReady) {
     openDoor();
