@@ -1,25 +1,22 @@
-const {SOCKET_HOST} = require("./config")
+const { SOCKET_HOST } = require("./config")
 const { Board, Led, Servo, Piezo } = require('johnny-five');
 const io = require('socket.io-client')
-const socket = io(SOCKET_HOST, {
-  path: '/socket'
-})
-const {OPEN_DOOR, CLOSE_DOOR, PLAY_ALERT, STOP_ALERT} = require('./constants');
+const socket = io(SOCKET_HOST, { path: '/socket' })
+const { OPEN_DOOR, CLOSE_DOOR, PLAY_ALERT, STOP_ALERT } = require('./constants');
 
-var redLed, greenLed, servo, piezo;
-var init = false;
-var initAction = [];
-var actions = {
+let redLed, greenLed, servo, piezo;
+let init = false;
+let initAction = [];
+const actions = {
   OPEN_DOOR: () => openDoor(),
   CLOSE_DOOR: () => closeDoor(),
   PLAY_ALERT: () => playAlert(),
   STOP_ALERT: () => stopAlert()
 }
 
-var board = new Board({
+let board = new Board({
   repl: false,
 });
-
 
 board.on('ready', function () {
   redLed = new Led(4);
@@ -28,58 +25,53 @@ board.on('ready', function () {
   piezo = new Piezo(2);
   console.log(init)
   console.log(initAction)
-  if(init){
-
-    for(var i = 0; i< initAction.length; i++){
-      var key = initAction[i];
-        if(key in actions){
-          actions[key]();
-        }
+  if (init) {
+    for (let i = 0; i < initAction.length; i++) {
+      let key = initAction[i];
+      if (key in actions) {
+        actions[key]();
+      }
     }
     init = false;
     initAction = []
-
-}
-  
-
+  }
 });
 
 socket.on(OPEN_DOOR, () => {
-  if(board.isReady){
+  if (board.isReady) {
     openDoor();
-  }else{
+  } else {
     init = true;
     initAction.push(OPEN_DOOR);
   }
 })
 
 socket.on(CLOSE_DOOR, () => {
-  if(board.isReady){
+  if (board.isReady) {
     closeDoor();
-  }else{
+  } else {
     init = true;
     initAction.push(CLOSE_DOOR);
   }
 })
 
 socket.on(PLAY_ALERT, () => {
-  if(board.isReady){
+  if (board.isReady) {
     playAlert();
-  }else{
+  } else {
     init = true;
     initAction.push(PLAY_ALERT);
   }
 })
 
 socket.on(STOP_ALERT, () => {
-  if(board.isReady){
+  if (board.isReady) {
     stopAlert();
-  }else{
+  } else {
     init = true;
     initAction.push(STOP_ALERT);
   }
 })
-
 
 function openDoor() {
   redLed.off();
@@ -104,5 +96,3 @@ function stopAlert() {
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-
