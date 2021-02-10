@@ -35,7 +35,7 @@ app.get('/api/', (req, resp) => {
 
 app.post('/api/persons/detection/', (req, resp) => {
   try {
-    console.log('Person passed')
+    console.log('Person detected')
     io.sockets.emit('GET_TOTAL_PERSONS', 'everyone')
     return resp.status(200).send({
       success: true,
@@ -48,12 +48,11 @@ app.post('/api/persons/detection/', (req, resp) => {
 
 // socket listners
 io.on('connection', (socket) => {
-  console.log('Device connected !');
+  console.log('New device connected');
 
   io.sockets.emit(GET_TOTAL_PERSONS, 'everyone')
 
   socket.on(TOTAL_PERSONS, (totalPersons) => {
-    console.log('Total persons: ' + totalPersons)
     if (totalPersons < maxPersons) {
       io.sockets.emit(OPEN_DOOR, 'everyone');
       io.sockets.emit(STOP_ALERT, 'everyone');
@@ -68,7 +67,7 @@ io.on('connection', (socket) => {
 
   socket.on(MAX_PERSONS, (max) => {
     maxPersons = max
-    console.log('Max persons: ' + maxPersons)
+    console.log('Max persons updated to ' + maxPersons)
     socket.emit(GET_TOTAL_PERSONS, 'everyone');
   });
 })
