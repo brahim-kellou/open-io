@@ -16,7 +16,6 @@ const Home = () => {
 
   React.useEffect(() => {
     socket.on('GET_TOTAL_PERSONS', () => {
-      console.log('GET_TOTAL_PERSONS')
       socket.emit('TOTAL_PERSONS', countPersonRef.current)
     })
   }, [])
@@ -24,7 +23,7 @@ const Home = () => {
   const onDetection = (objects: any[]) => {
     const count = objects.filter(obj => obj.class === "person").length;
 
-    if (count != countPersonRef.current) {
+    if (count !== countPersonRef.current) {
       setCountPerson(() => countPersonRef.current = count);
     }
   }
@@ -35,28 +34,18 @@ const Home = () => {
 
   return (
     <Box className="home" width="100%" height="100vh">
-      <Grid
-        height="100%"
-        templateColumns="repeat(12, 1fr)"
-      >
-        <GridItem
-          colSpan={3}
-        >
-          <Menu
-            countPerson={countPerson}
-            onMaxChanged={onMaxChanged}
-          />
-        </GridItem>
-        <GridItem
-          colSpan={9}
-        >
-          <ObjectDetection
-            width={800}
-            height={450}
-            onDetection={onDetection}
-          />
-        </GridItem>
-      </Grid>
+      <h1 className="total-persons">{countPerson}</h1>
+      <ObjectDetection
+        width={800}
+        height={450}
+        onDetection={onDetection}
+      />
+      <Box className="form">
+        <Menu
+          countPerson={countPerson}
+          onMaxChanged={onMaxChanged}
+        />
+      </Box>
     </Box>
   )
 }

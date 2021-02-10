@@ -32,44 +32,36 @@ const Menu: React.FC<MenuProps> = ({
   }
 
   return (
-    <Flex flexDirection="column" className="menu"
-      width="100%" height="100%"
-    >
-      <Box marginBottom={4} marginTop={4}>
-        <Text fontSize="sm">Nombre de personnes: {countPerson}</Text>
-      </Box>
-      <Box marginBottom={4} marginTop={4}>
-        <Text fontSize="sm">Nombre maximum des personnes</Text>
-        <form onSubmit={submit}>
-          <Flex>
-            <Input
-              value={max}
-              isDisabled={!editable}
-              marginRight={4}
-              onChange={handleOnChange}
-            />
-            {
-              editable ? (
+    <Box marginBottom={4} marginTop={4}>
+      <Text fontSize="sm">Max de personnes</Text>
+      <form onSubmit={submit}>
+        <Flex>
+          <Input
+            value={max}
+            isDisabled={!editable}
+            marginRight={4}
+            onChange={handleOnChange}
+          />
+          {
+            editable ? (
+              <Button
+                colorScheme="blue"
+                type="submit"
+              >
+                Engistrer
+              </Button>
+            ) : (
                 <Button
                   colorScheme="blue"
-                  type="submit"
+                  onClick={toggleEditable}
                 >
-                  Engistrer
+                  Modifier
                 </Button>
-              ) : (
-                  <Button
-                    colorScheme="blue"
-                    onClick={toggleEditable}
-                  >
-                    Modifier
-                  </Button>
-                )
-            }
-          </Flex>
-        </form>
-      </Box>
-
-    </Flex>
+              )
+          }
+        </Flex>
+      </form>
+    </Box>
   );
 }
 

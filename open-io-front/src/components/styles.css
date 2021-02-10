@@ -3,8 +3,18 @@
   color: white;
 }
 
-.menu {
-  background-color: white;
-  color: #282c34;
-  padding: 10px;
+.form {
+  max-width: 460px;
+  margin: auto;
+}
+
+.total-persons {
+  text-align: center;
+  font-size: 7em;
+}
+
+.form p {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 8px;
 }

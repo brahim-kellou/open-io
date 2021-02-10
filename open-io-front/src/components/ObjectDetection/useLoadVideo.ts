@@ -45,7 +45,7 @@ function useLoadVideo({
 
     return () => { }
 
-  }, [videoRef])
+  }, [width, height, videoRef])
 
   return video;
 }

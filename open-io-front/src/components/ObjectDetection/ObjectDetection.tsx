@@ -58,11 +58,10 @@ const ObjectDetection: React.FC<ObjectDetectionOptions> = ({
   }, [model, video])
 
   return (
-    <Flex height="100%"
+    <Flex
       flexDirection="column" justifyContent="center"
       alignItems="center"
     >
-      <h1>OpenIO</h1>
       <canvas
         width={width} height={height}
         ref={canvasRef}
