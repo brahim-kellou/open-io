@@ -7,12 +7,16 @@ const apiUrl = PROD_API_ENDPOINT + apiPath
 
 var board = new Board({
     repl: false,
+    port : "COM7"
 });
 
 
 board.on("ready", function () {
    // read from A0
-    var pin = new Pin("A0");
+    var pin = new Pin({
+        pin :"A0",
+        board: board
+    });
     var presence = false;
 
     // Envoi d'un message vers le serveur.
@@ -33,4 +37,3 @@ board.on("ready", function () {
         }
     });
 });
-

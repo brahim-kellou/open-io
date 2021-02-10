@@ -4,36 +4,80 @@ const io = require('socket.io-client')
 const socket = io(SOCKET_HOST, {
   path: '/socket'
 })
-const {OPEN_DOOR, CLOSE_DOOR, PLAY_ALARM, STOP_ALARM} = require('./constants');
+const {OPEN_DOOR, CLOSE_DOOR, PLAY_ALERT, STOP_ALERT} = require('./constants');
 
 var redLed, greenLed, servo, piezo;
+var init = false;
+var initAction = [];
+var actions = {
+  OPEN_DOOR: () => openDoor(),
+  CLOSE_DOOR: () => closeDoor(),
+  PLAY_ALERT: () => playAlert(),
+  STOP_ALERT: () => stopAlert()
+}
 
 var board = new Board({
   repl: false,
 });
+
 
 board.on('ready', function () {
   redLed = new Led(4);
   greenLed = new Led(5);
   servo = new Servo(9);
   piezo = new Piezo(2);
+  console.log(init)
+  console.log(initAction)
+  if(init){
+
+    for(var i = 0; i< initAction.length; i++){
+      var key = initAction[i];
+        if(key in actions){
+          actions[key]();
+        }
+    }
+    init = false;
+    initAction = []
+
+}
+  
 
 });
 
 socket.on(OPEN_DOOR, () => {
-  openDoor();
+  if(board.isReady){
+    openDoor();
+  }else{
+    init = true;
+    initAction.push(OPEN_DOOR);
+  }
 })
 
 socket.on(CLOSE_DOOR, () => {
-  closeDoor();
+  if(board.isReady){
+    closeDoor();
+  }else{
+    init = true;
+    initAction.push(CLOSE_DOOR);
+  }
 })
 
-socket.on(PLAY_ALARM, () => {
-  playAlert();
+socket.on(PLAY_ALERT, () => {
+  if(board.isReady){
+    playAlert();
+  }else{
+    init = true;
+    initAction.push(PLAY_ALERT);
+  }
 })
 
-socket.on(STOP_ALARM, () => {
-  stopAlert();
+socket.on(STOP_ALERT, () => {
+  if(board.isReady){
+    stopAlert();
+  }else{
+    init = true;
+    initAction.push(STOP_ALERT);
+  }
 })
 
 
