@@ -1,4 +1,4 @@
-const { SOCKET_HOST } = require("./config")
+const { SOCKET_HOST } = require('./config')
 const { Board, Led, Servo, Piezo } = require('johnny-five');
 const io = require('socket.io-client')
 const socket = io(SOCKET_HOST, { path: '/socket' })
@@ -23,8 +23,6 @@ board.on('ready', function () {
   greenLed = new Led(5);
   servo = new Servo(9);
   piezo = new Piezo(2);
-  console.log(init)
-  console.log(initAction)
   if (init) {
     for (let i = 0; i < initAction.length; i++) {
       let key = initAction[i];
