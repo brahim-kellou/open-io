@@ -8,12 +8,20 @@ const io = require('socket.io')(http, {
   },
   path: '/socket'
 });
-const { OPEN_DOOR, CLOSE_DOOR, PLAY_ALERT, STOP_ALERT } = require('./constants');
+const {
+  OPEN_DOOR,
+  CLOSE_DOOR,
+  PLAY_ALERT,
+  STOP_ALERT,
+  MAX_PERSONS,
+  GET_TOTAL_PERSONS,
+  TOTAL_PERSONS
+} = require('./constants');
 
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 
-var maxPersons = 10;
+let maxPersons = 10;
 
 app.use(bodyParser.json());
 
@@ -42,9 +50,9 @@ app.post('/api/persons/detection/', (req, resp) => {
 io.on('connection', (socket) => {
   console.log('Device connected !');
 
-  io.sockets.emit('GET_TOTAL_PERSONS', 'everyone')
+  io.sockets.emit(GET_TOTAL_PERSONS, 'everyone')
 
-  socket.on('TOTAL_PERSONS', (totalPersons) => {
+  socket.on(TOTAL_PERSONS, (totalPersons) => {
     console.log('Total persons: ' + totalPersons)
     if (totalPersons < maxPersons) {
       io.sockets.emit(OPEN_DOOR, 'everyone');
@@ -58,10 +66,10 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('MAX_PERSONS', (max) => {
+  socket.on(MAX_PERSONS, (max) => {
     maxPersons = max
     console.log('Max persons: ' + maxPersons)
-    socket.emit('GET_TOTAL_PERSONS', 'everyone');
+    socket.emit(GET_TOTAL_PERSONS, 'everyone');
   });
 })
 
