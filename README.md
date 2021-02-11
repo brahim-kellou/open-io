@@ -13,8 +13,9 @@ Contrôle des flux d'entrée et de sortie en agissant sur les portes automatique
     - [Frontend](#frontend)
     - [Backend](#backend)
     - [Clients](#clients)
-  - [4.3 Déploiement](#43-déploiement)
-  - [4.4 Tests](#44-tests)
+  - [4.3 Diagram de séquence](#43-diagram-de-séquence)
+  - [4.4 Déploiement](#44-déploiement)
+  - [4.5 Tests](#45-tests)
     - [Environnement de test physique](#environnement-de-test-physique)
     - [Environnement de test logiciel](#environnement-de-test-logiciel)
 - [5 La gestion des problèmes](#5-la-gestion-des-problèmes)
@@ -29,12 +30,12 @@ Depuis le 11 mai 2020 et la publication par le gouvernement du protocole nationa
 
 Avec le Covid-19 et le respect des nouvelles règles sanitaires, les magasins sont contraints de compter les clients entrants et sortants pour respecter le niveau de fréquentation autorisé. l'équipe **OpenIO** a recensé une solution d’automatisation pour sortir des méthodes empiriques adoptées durant cette crise. En effet, notre but et de digitaliser pour mieux informer, les membres de l'équipe **OpenIO** sont :
 
-- *ABDI Karim : p2019045,* en tant que responsable du côté matériel.
-- *KELLOU Brahim : p2021003,* en tant que responsable du développement web.
-- *SABOUR Oussama : p2020578,* en tant que développeur arduino.
-- *LARMITOU Arnaud : p2019764,* en tant que développeur arduino
-- *SALHI mohamed : p2020685,* en tant que développeur
-- *AGAGNA Radjaa : p2020608,* en tant que chef de projet.
+- **ABDI Karim, p2019045** en tant que responsable du côté matériel.
+- **KELLOU Brahim, p2021003*** en tant que responsable du développement web.
+- **SABOUR Oussama, p2020578** en tant que développeur arduino.
+- **LARMITOU Arnaud, p2019764** en tant que développeur arduino
+- **SALHI mohamed, p2020685** en tant que développeur
+- **AGAGNA Radjaa, p2020608** en tant que chef de projet.
 
 ## 3. Listes des tâches
 
@@ -92,8 +93,6 @@ L’application web se charge d’afficher le nombre des personnes exact ainsi e
 
 L’application web se charge d'envoyer des requêtes vers le serveur arduino détecteur pour signaler le dépassement de nombre max afin de fermer la porte (changement de direction du moteur) et allumer le led rouge.
 
-![Diagram de séquence](https://i.ibb.co/bg7Hy6V/Rapport-004.jpg)
-
 #### Clients
 
 Les arduinos sont les clients du serveur web, ils vont envoyer des informations au serveur web, comme la détection de passage, mais aussi recevoir des messages pour ouvrir et fermer la porte.
@@ -102,13 +101,17 @@ L’arduino capteur va seulement envoyer des messages au serveur, tandis que l�
 
 Il s’agit plus d’un flot continu partant du capteur, qui va envoyer le message de détection au serveur, qui mettra à jour le nombre de personnes présentes, qui enverra ou non un message à l’actionneur pour interagir avec la porte.
 
-### 4.3 Déploiement
+### 4.3 Diagram de séquence
+
+![Diagram de séquence](https://i.ibb.co/bg7Hy6V/Rapport-004.jpg)
+
+### 4.4 Déploiement
 
 Nous présentons dans qui se suit l’architecture de déploiement pour notre projet qui contient 3 serveurs, un serveur en local pour l’arduino actionneur un autre serveur en local pour l’arduino détecteur et un 3eme pour l’application web déployée sur la VM :
 
 ![Diagram de déploiement](https://i.ibb.co/7pnsnzn/Rapport-005.jpg)
 
-### 4.4 Tests
+### 4.5 Tests
 
 #### Environnement de test physique
 
