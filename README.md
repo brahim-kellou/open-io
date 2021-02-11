@@ -42,7 +42,7 @@ Avec le Covid-19 et le respect des nouvelles règles sanitaires, les magasins so
  Nom | Contenu | Affectation
 ---|---|---
  Développement Arduino | Développement et montage des arduinos <br/> Détection des personnes Ouvrir/fermer la porte déclencher les alertes | Karim, Oussama, Arnaud
- Développement Côté back-end | Connexion entre les deux clients | Brahim, Mohamed 
+ Développement côté back-end | Connexion entre les deux clients | Brahim, Mohamed 
  Développement côté front-end | Gestion de la caméra <br/> Comptage des personnes | Brahim, Radjaa
  Déploiement VM (production) | Configuration de Nginx | Mohamed, Oussama
  Gestion de l’équipe | Gérer les réunions | Radjaa
