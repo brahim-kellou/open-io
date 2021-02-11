@@ -18,7 +18,7 @@ Contrôle des flux d'entrée et de sortie en agissant sur les portes automatique
   - [4.5 Tests](#45-tests)
     - [Environnement de test physique](#environnement-de-test-physique)
     - [Environnement de test logiciel](#environnement-de-test-logiciel)
-- [5 La gestion des problèmes](#5-la-gestion-des-problèmes)
+- [5. La gestion des problèmes](#5-la-gestion-des-problèmes)
 - [6. Références](#6-références)
 
 
@@ -127,7 +127,7 @@ On a pu en conclure que les passages étaient bien détectés et que le projet p
 
 Pour tester le fonctionnement de la VM et application web ainsi que les 2 machines contenant les 2 serveurs détecteur et actionneur, une installation des 2 serveurs en local pour se connecter avec la VM à distance tout en utilisant le web socket.
 
-## 5 La gestion des problèmes
+## 5. La gestion des problèmes
 
 De multiples problèmes matériels et techniques sont apparus tout au long du projet qui nous ont forcés à trouver des solutions rapidement.
 
