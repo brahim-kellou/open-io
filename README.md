@@ -31,7 +31,7 @@ Depuis le 11 mai 2020 et la publication par le gouvernement du protocole nationa
 Avec le Covid-19 et le respect des nouvelles règles sanitaires, les magasins sont contraints de compter les clients entrants et sortants pour respecter le niveau de fréquentation autorisé. l'équipe **OpenIO** a recensé une solution d’automatisation pour sortir des méthodes empiriques adoptées durant cette crise. En effet, notre but et de digitaliser pour mieux informer, les membres de l'équipe **OpenIO** sont :
 
 - **ABDI Karim, p2019045** en tant que responsable du côté matériel.
-- **KELLOU Brahim, p2021003*** en tant que responsable du développement web.
+- **KELLOU Brahim, p2021003** en tant que responsable du développement web.
 - **SABOUR Oussama, p2020578** en tant que développeur arduino.
 - **LARMITOU Arnaud, p2019764** en tant que développeur arduino
 - **SALHI mohamed, p2020685** en tant que développeur
